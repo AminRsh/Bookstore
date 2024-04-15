@@ -20,7 +20,6 @@ model User {
   clerkId   String   @unique
   email     String   @unique
   username  String
-  password  String
   firstName  String
   lastName  String
   userPhoto  String
