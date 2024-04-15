@@ -10,11 +10,10 @@ import { string } from "zod";
 
 interface CreateUserParams {
     clerkId: string
-    email: string
-    username: string
-    password: string
     firstName: string
     lastName: string
+    email: string
+    username: string
     userPhoto: string
 }
 
