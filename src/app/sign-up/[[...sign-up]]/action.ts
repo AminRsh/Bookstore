@@ -4,11 +4,14 @@ import Swal from 'sweetalert2'
 interface ClerkUser {
     id: string;
     email: string;
-    password: string;
+    username: string;
+    firstName: string,
+    lastName: string,
+    userPhoto: string,
 }
 
 async function handleUserSignUp(clerkUser: ClerkUser) {
-    const { id, email, password } = clerkUser;
+    const { id, email, username, firstName, lastName, userPhoto } = clerkUser;
 
     let user = await prisma.user.findUnique({
         where: {
@@ -21,7 +24,10 @@ async function handleUserSignUp(clerkUser: ClerkUser) {
             data: {
                 clerkId: id,
                 email,
-                password,
+                username,
+                firstName,
+                lastName,
+                userPhoto
             }
         })
     }

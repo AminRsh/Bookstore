@@ -12,6 +12,7 @@ interface CreateUserParams {
     clerkId: string
     email: string
     username: string
+    password: string
     firstName: string
     lastName: string
     userPhoto: string
