@@ -13,12 +13,13 @@ import {
 import LogoImage from "../assets/logo.png";
 import SearchBar from "./SearchBar";
 import Menu from "./Menu";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { useUser } from "@clerk/clerk-react";
 
-const Navbar = () => {
-    const { isLoaded, user } = useUser();
 
+const Navbar = () => {
+
+    const { isLoaded, user } = useUser();
 
     return (
         <nav className="">

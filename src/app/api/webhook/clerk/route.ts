@@ -6,6 +6,9 @@ import { clerkClient } from '@clerk/nextjs'
 
 export async function POST(req: Request) {
 
+    const rawBody = await req.text();
+    console.log("Raw request body:", rawBody);
+
     const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
 
     if (!WEBHOOK_SECRET) {
@@ -24,8 +27,9 @@ export async function POST(req: Request) {
     }
 
     const payload = await req.json()
-    const body = JSON.stringify(payload);
 
+    const body = JSON.stringify(payload);
+    console.log("Received webhook payload:", payload);
     const wh = new Webhook(WEBHOOK_SECRET);
 
     let evt: WebhookEvent
@@ -46,11 +50,12 @@ export async function POST(req: Request) {
     const { id } = evt.data;
     const eventType = evt.type;
 
-    
+    console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
+    console.log('Webhook body:', body)
 
     if (eventType === "user.created") {
-        
-        const { id, email_addresses, first_name, last_name, username ,image_url} = evt.data
+
+        const { id, email_addresses, first_name, last_name, username, image_url } = evt.data
         const user = {
             clerkId: id,
             firstName: first_name,
@@ -70,9 +75,16 @@ export async function POST(req: Request) {
                     userId: newUser.id
                 }
             })
-        } 
+        }
     }
 
-    
-    return new Response('', { status: 200 })
+
+    return new Response('Hello from API route', { status: 200 })
 }
+
+
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+};

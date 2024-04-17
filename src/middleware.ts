@@ -3,7 +3,10 @@ import { authMiddleware } from "@clerk/nextjs";
 export default authMiddleware({
     publicRoutes: (req) => {
         const excludedRoutes = ["/admin", "/books/new"];
-        return !excludedRoutes.some(route => req.url.includes(route));
+
+        const isWebhookRoute = req.url.startsWith("/routes");
+
+        return isWebhookRoute || !excludedRoutes.some(route => req.url.includes(route));
     },
 });
 
