@@ -6,9 +6,7 @@ import { clerkClient } from '@clerk/nextjs'
 
 export async function POST(req: Request) {
 
-    const rawBody = await req.text();
-    console.log("Raw request body:", rawBody);
-
+    
     const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
 
     if (!WEBHOOK_SECRET) {
@@ -29,7 +27,7 @@ export async function POST(req: Request) {
     const payload = await req.json()
 
     const body = JSON.stringify(payload);
-    console.log("Received webhook payload:", payload);
+   
     const wh = new Webhook(WEBHOOK_SECRET);
 
     let evt: WebhookEvent
@@ -50,9 +48,7 @@ export async function POST(req: Request) {
     const { id } = evt.data;
     const eventType = evt.type;
 
-    console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
-    console.log('Webhook body:', body)
-
+ 
     if (eventType === "user.created") {
 
         const { id, email_addresses, first_name, last_name, username, image_url } = evt.data
@@ -67,7 +63,6 @@ export async function POST(req: Request) {
 
         const newUser = await createUser(user);
 
-        console.log("New user:", newUser);
 
         if (newUser) {
             await clerkClient.users.updateUserMetadata(id, {
