@@ -42,5 +42,4 @@ export const createUserSchema = z.object({
     username: requiredString.max(100),
     firstName: requiredString.max(100), 
     lastName: requiredString.max(100),
-    userPhoto: ImgSchema
 })

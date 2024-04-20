@@ -20,7 +20,8 @@ import { useUser } from "@clerk/clerk-react";
 const Navbar = () => {
 
     const { isLoaded, user } = useUser();
-
+   
+   
     return (
         <nav className="">
             {

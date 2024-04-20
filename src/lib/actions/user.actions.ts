@@ -2,11 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { createUserSchema } from "@/lib/validation";
-import { put } from "@vercel/blob";
-import { redirect } from "next/navigation";
-import path from "path";
 import { handleError } from "../utils";
-import { string } from "zod";
 
 interface CreateUserParams {
     clerkId: string
@@ -14,7 +10,6 @@ interface CreateUserParams {
     lastName: string
     email: string
     username: string
-    userPhoto: string
 }
 
 export async function createUser(user: CreateUserParams) {
@@ -26,22 +21,9 @@ export async function createUser(user: CreateUserParams) {
             lastName,
             username,
             email,
-            userPhoto
         } = createUserSchema.parse(user)
 
-        let userPhotoUrl: string = ""
 
-        if (userPhoto) {
-            const blob = await put(
-                `user_photos/${clerkId}${path.extname(userPhoto.name)}`,
-                userPhoto,
-                {
-                    access: "public",
-                    addRandomSuffix: false
-                }
-            )
-            userPhotoUrl = blob.url
-        }
 
         const newUser = await prisma.user.create({
             data: {
@@ -50,7 +32,6 @@ export async function createUser(user: CreateUserParams) {
                 lastName,
                 username,
                 email,
-                userPhoto: userPhotoUrl
             }
             
         })

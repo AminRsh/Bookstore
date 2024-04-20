@@ -1,8 +1,17 @@
-import { SignIn } from "@clerk/nextjs";
-
+"use client"
+import { useState, useEffect } from 'react';
+import { SignIn } from '@clerk/nextjs';
 
 export default function Page() {
-    <time dateTime="2024-01-01" suppressHydrationWarning>{new Date().toLocaleDateString()}</time>
+    const [isClient, setIsClient] = useState(false);
 
-    return <div className="flex flex-col justify-center items-center my-16"><SignIn /></div> ;
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    return (
+        <div className="flex flex-col justify-center items-center my-16">
+            {isClient && <SignIn />}
+        </div>
+    );
 }

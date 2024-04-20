@@ -22,7 +22,6 @@ model User {
   username  String
   firstName  String
   lastName  String
-  userPhoto  String
   createdBooks Book[]        @relation("CreatedByUser")
   bookReviews BookReview[] 
   createdAt DateTime @default(now())
