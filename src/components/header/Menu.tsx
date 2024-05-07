@@ -27,7 +27,7 @@ const Navbar = () => {
                     <span>|</span>
                   </li>
                   <li className="flex space-x-4 pr-6  pb-4 pt-4  hover:text-slate-700 duration-200">
-                    <Link href="/">ABOUT US</Link>
+                    <Link href="/books/new">ORDER BOOK</Link>
                     <span>|</span>
                   </li>
                   <li className="flex space-x-4 pr-6  pb-4 pt-4  hover:text-slate-700 duration-200">
@@ -40,7 +40,7 @@ const Navbar = () => {
                     <span>|</span>
                   </li>
                   <li className="flex space-x-4  pb-4 pt-4  hover:text-slate-700 duration-200 ">
-                    <Link href="/">CONTACT US</Link>
+                    <Link href="/contact">CONTACT US</Link>
                     <span>|</span>
                   </li>
                   <li className="ml-8 pb-4 pt-4  hover:text-slate-700 duration-200 ">
@@ -79,7 +79,7 @@ const Navbar = () => {
               onClick={navHandler}
               className="pl-0 pr-4 pt-3 pb-3 text-2xl hover:text-gray-500"
             >
-              <Link href="/">ABOUT US</Link>
+                <Link href="/books/new">ORDER BOOK</Link>
             </li>
             <li
               onClick={navHandler}
@@ -97,7 +97,7 @@ const Navbar = () => {
               onClick={navHandler}
               className="pl-0 pr-4 pt-3 pb-3 text-2xl hover:text-gray-500"
             >
-              <Link href="/">CONTACT  US</Link>
+              <Link href="/contact">CONTACT  US</Link>
             </li>
             <li
               onClick={navHandler}

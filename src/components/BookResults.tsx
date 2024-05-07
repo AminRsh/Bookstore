@@ -50,7 +50,7 @@ const BookResults = async ({ filterValues, page = 1 }: BookResultProps) => {
     const countPromise = prisma.book.count({ where })
 
     const [books, totalResults] = await Promise.all([booksPromise, countPromise])
-    
+
     return (
         <div className="space-y-4 grow">
             {
@@ -98,7 +98,7 @@ function Pagination(
             ...(publisher && { publisher }),
             page: page.toString(),
         })
-        return `/?${searchParams.toString()}`
+        return `/books?${searchParams.toString()}`
     }
     return <div className="flex justify-between">
         <Link

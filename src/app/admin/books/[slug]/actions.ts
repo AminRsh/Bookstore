@@ -13,6 +13,7 @@ export async function approveSubmission(prevState: FormState,  formData: FormDat
     try {
         const bookId = parseInt(formData.get("bookId") as string)
 
+
         const user = await currentUser()
 
         if (!user || !isAdmin(user)) {
@@ -39,7 +40,7 @@ export async function deleteJob(prevState: FormState, formData: FormData) {
         const bookId = parseInt(formData.get("bookId") as string)
 
         const user = await currentUser()
-
+        
         if (!user || !isAdmin(user)) {
             throw new Error("Not authorized")
         }
@@ -56,7 +57,8 @@ export async function deleteJob(prevState: FormState, formData: FormData) {
             where: {id: bookId}
         })
 
-        revalidatePath("/")
+        revalidatePath("/books")
+        redirect("/books")
 
     } catch (error) {
         let message = "Unexpected error"

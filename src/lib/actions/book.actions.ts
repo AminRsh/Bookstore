@@ -5,10 +5,21 @@ import { toSlug } from "@/lib/utils";
 import { createBookSchema } from "@/lib/validation";
 import { put } from "@vercel/blob";
 import { nanoid } from "nanoid";
-import { redirect } from "next/navigation";
 import path from "path";
+import { currentUser } from "@clerk/nextjs/server";
+import { getUserById } from "./user.actions";
+
 
 export async function createBookPosting(formData: FormData) {
+
+    const user = await currentUser()
+    const userId = user?.id
+
+    let createdBy: number | undefined;
+    if (userId) {
+        createdBy = await getUserById(userId);
+    }
+
     const values = Object.fromEntries(formData.entries());
 
     const {
@@ -27,7 +38,7 @@ export async function createBookPosting(formData: FormData) {
 
     const slug = `${toSlug(title)}-${nanoid(10)}`;
 
-    let bookCoverImg : string | undefined = undefined;
+    let bookCoverImg: string | undefined = undefined;
 
     if (coverImg) {
         const blob = await put(
@@ -42,23 +53,33 @@ export async function createBookPosting(formData: FormData) {
         bookCoverImg = blob.url;
     }
 
-    await prisma.book.create({
-        data: {
-            slug,
-            title: title.trim(),
-            author: author.trim(),
-            category: category?.trim(),
-            price: parseInt(price),
-            publisher: publisher?.trim(),
-            isbn: isbn?.trim(),
-            language: language?.trim(),
-            pages: parseInt(pages),
-            rating: rating,
-            bookCoverImg,
-            description: description?.trim(),
-            approved: true, 
-        },
-    });
+    if (createdBy) {
+        await prisma.book.create({
+            data: {
+                slug,
+                title: title.trim(),
+                author: author.trim(),
+                category: category?.trim(),
+                price: parseInt(price),
+                publisher: publisher?.trim(),
+                isbn: isbn?.trim(),
+                language: language?.trim(),
+                pages: parseInt(pages),
+                rating: parseInt(rating),
+                bookCoverImg,
+                description: description?.trim(),
+                approved: false,
+                createdBy: {
+                    connect: {
+                        id: createdBy,
+                    },
+                },
+            },
+        });
 
-    redirect("/book-submitted");
+    } else {
+        console.log("created By Notfound");
+
+    }
 }
+

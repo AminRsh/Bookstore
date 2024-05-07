@@ -22,7 +22,7 @@ export const createBookSchema = z.object({
     isbn: requiredString.max(100).optional(),
     language: requiredString.max(100).optional(),
     pages: numericRequiredString.max(9, "Number can't be longer than 9 digits"),
-    rating: z.number().max(100, "Rating can't be higher than 100"),
+    rating: numericRequiredString.max(9, "Number can't be longer than 9 digits"),
 })
 
 export type CreateBookValues = z.infer<typeof createBookSchema>
@@ -43,3 +43,10 @@ export const createUserSchema = z.object({
     firstName: requiredString.max(100), 
     lastName: requiredString.max(100),
 })
+
+export const createReviewSchema = z.object({
+    review: z.string().max(5000).optional(),
+    rating: numericRequiredString.max(9, "Number can't be longer than 9 digits"),
+})
+
+export type CreateReviewkValues = z.infer<typeof createReviewSchema>

@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { Card,} from './ui/card'
 import books from "@/lib/book-database"
 import PercentageToStars from './PercentageToStars';
+import coverImg from "@/assets/Unsplash.svg"
+
 
 interface bookProps {
     id: number,
@@ -28,7 +30,7 @@ const BookCard = () => {
                             <div className="flex justify-start items-center space-x-8">
                                 <div className="w-[85px] h-[125px]">
                                     <Image 
-                                    src={book.Image_URL} 
+                                    src={book.Image_URL || coverImg} 
                                     alt={book.Title} 
                                     width={85} 
                                     height={125}

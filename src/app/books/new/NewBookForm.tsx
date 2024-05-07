@@ -11,31 +11,52 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { draftToMarkdown } from "markdown-draft-js";
 import { useForm } from "react-hook-form";
 import { createBookPosting } from "@/lib/actions/book.actions";
+import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from 'next/navigation'
+
 
 export default function NewBookForm() {
+
+    const router = useRouter()
     const form = useForm<CreateBookValues>({
         resolver: zodResolver(createBookSchema),
     });
-
-    const { handleSubmit, watch, trigger, control, setValue, setFocus, formState: { isSubmitting } } = form;
-
+    
+    const { handleSubmit, control, setFocus, formState: { isSubmitting } } = form;
+    
     async function onSubmit(values: CreateBookValues) {
         const formData = new FormData();
-
-        Object.entries(values).forEach(([key, value]) => {
+        
+        Object.entries(values).forEach(([key, value]) => {   
             if (value) {
                 if (typeof value === 'string' || value instanceof Blob) {
                     formData.append(key, value);
-                } else if (typeof value === 'number') {
-                    // Convert number to string before appending
-                    formData.append(key, value.toString());
+
                 }
             }
         });
 
         try {
-            await createBookPosting(formData);
+            await createBookPosting(formData)
+            .then(() => {
+                toast('Your book registered successfully!', 
+                {
+                    position: "bottom-right",
+                    autoClose: 2900,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+                
+                setTimeout(() => {
+                    router.push("/books");
+                }, 4000);
+            })
+
         } catch (error) {
+            console.error("Error creating book:", error);
             alert("Something went wrong, please try again.");
         }
     }
@@ -59,7 +80,7 @@ export default function NewBookForm() {
                     <form
                         className="space-y-4"
                         noValidate
-                    onSubmit={handleSubmit(onSubmit)}
+                        onSubmit={handleSubmit(onSubmit)}
                     >
                         <FormField
                             control={control}
@@ -159,7 +180,7 @@ export default function NewBookForm() {
                                 <FormItem>
                                     <FormLabel>Page Numbers</FormLabel>
                                     <FormControl>
-                                        <Input {...field} type="number" defaultValue="0" />
+                                        <Input {...field} type="number" defaultValue= "0"  />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -219,13 +240,14 @@ export default function NewBookForm() {
                                 </FormItem>
                             )}
                         />
-                      
+
                         <LoadingButton type="submit" loading={isSubmitting}>
                             Submit
                         </LoadingButton>
                     </form>
                 </Form>
             </div>
+            <ToastContainer autoClose={2900} />
         </main>
     );
 }

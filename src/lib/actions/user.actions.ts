@@ -3,6 +3,8 @@
 import prisma from "@/lib/prisma";
 import { createUserSchema } from "@/lib/validation";
 import { handleError } from "../utils";
+import NotFound from "@/app/not-found";
+
 
 interface CreateUserParams {
     clerkId: string
@@ -11,6 +13,7 @@ interface CreateUserParams {
     email: string
     username: string
 }
+
 
 export async function createUser(user: CreateUserParams) {
     console.log("Received user data:", user);
@@ -33,7 +36,7 @@ export async function createUser(user: CreateUserParams) {
                 username,
                 email,
             }
-            
+
         })
 
         return newUser
@@ -43,3 +46,25 @@ export async function createUser(user: CreateUserParams) {
     }
 
 }
+
+
+export async function getUserById(clerkId: string) {
+    try {
+        const user = await prisma.user.findUnique({
+            where: { clerkId }
+        })
+
+        const id = user?.id
+
+        if (!user) {
+            console.log("User Not Found");
+            NotFound()
+        }
+
+        return id
+        
+    } catch (error) {
+        handleError(error)
+    }
+}
+

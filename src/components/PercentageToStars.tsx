@@ -3,7 +3,7 @@ import { VscStarFull, VscStarHalf, VscStarEmpty } from "react-icons/vsc";
 
 const PercentageToStars = ({ rating }: { rating: number }) => {
     
-    const percentage = (rating / 30) * 100;
+    const percentage = (rating / 5) * 100;
     const fullStarsCount = Math.round((percentage / 100) * 5);
     const remainder = (percentage / 100) * 5 - fullStarsCount;
 

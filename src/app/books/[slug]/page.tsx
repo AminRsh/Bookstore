@@ -3,57 +3,15 @@ import prisma from "@/lib/prisma"
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
 import BookPage from "@/components/BookPage"
-import { Button } from "@/components/ui/button"
 import FeedbackForm from "@/components/FeedbackForm"
 import CarouselReviews from "@/components/CarouselReviews"
-
+import { getReview } from "@/lib/actions/review.action"
+import { clerkClient } from "@clerk/nextjs";
 
 interface PageProps {
     params: { slug: string }
 }
 
-const reviews = [
-    {
-        "id": 1,
-        "bookId": 123,
-        "userId": 456,
-        "review": "This book is amazing! Highly recommended.",
-        "createdAt": "2024-04-08T12:00:00Z",
-        "imgSrc": "/assets/profile.png"
-    },
-    {
-        "id": 2,
-        "bookId": 456,
-        "userId": 789,
-        "review": "I couldn't get into this book. Not my cup of tea.",
-        "createdAt": "2024-04-07T10:30:00Z",
-        "imgSrc": "/assets/profile.png"
-    },
-    {
-        "id": 3,
-        "bookId": 789,
-        "userId": 123,
-        "review": "A classic! I've read it multiple times.",
-        "createdAt": "2024-04-06T15:45:00Z",
-        "imgSrc": "/assets/profile.png"
-    },
-    {
-        "id": 4,
-        "bookId": 790,
-        "userId": 124,
-        "review": "A classic! I've read it multiple times.",
-        "createdAt": "2024-04-06T15:45:00Z",
-        "imgSrc": "/assets/profile.png"
-    },
-    {
-        "id": 5,
-        "bookId": 791,
-        "userId": 125,
-        "review": "A classic! I've read it multiple times.",
-        "createdAt": "2024-04-06T15:45:00Z",
-        "imgSrc": "/assets/profile.png"
-    },
-]
 
 
 const getBook = cache(async (slug: string) => {
@@ -82,26 +40,53 @@ export async function generateMetadata({ params: { slug } }: PageProps): Promise
     }
 }
 
-
 const Page = async ({ params: { slug } }: PageProps) => {
     const book = await getBook(slug)
+    const bookId = book.id
 
     if (!book) {
         console.log("Book has no application link or email");
         notFound()
     }
 
-    return <main className="flex justify-center items-center space-x-32 mb-[80px] mx-auto">
-        <BookPage book={book} />
-        <div className="border rounded-xl bg-gray-200 w-[795px] h-[600px] flex flex-col justify-center items-center">
-            <FeedbackForm />
-        </div>
+    const reviews = await getReview(bookId) || []
+    type Review = {
+        user: {
+            clerkId: string;
+        };
+    };
+    const fetchUserImages = async (reviews: Review[]) => {
+        const userImages = [];
+        for (const review of reviews) {
+            const user = await clerkClient.users.getUser(review.user.clerkId);
+            userImages.push(user.imageUrl);
+        }
+        return userImages;
+    };
 
-        <div className="flex flex-col justify-center mx-auto px-20">
-                <CarouselReviews reviews={reviews} />
-        </div>
-    </main>
+    const userImages = await fetchUserImages(reviews);
 
+    return (
+        <>
+            <div className="flex space-x-16 mx-[150px] my-[100px] xl:mx-[50px]">
+                <div className="relative group xl:col-span-3">
+                    <BookPage book={book} />
+                </div>
+
+                <div className="grow rounded-xl flex flex-col items-center justify-center">
+                    <FeedbackForm
+                        bookId={bookId}
+                    />
+                </div>
+            </div>
+            <div className="flex flex-col justify-center mb-10 mx-[200px] px-20">
+                <CarouselReviews
+                    reviews={reviews}
+                    userImages={userImages}
+                />
+            </div>
+        </>
+    )
 }
 
 export default Page 

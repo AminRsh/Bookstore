@@ -25,8 +25,10 @@ interface ApproveSubmissionProps {
     bookId: number
 }
 
-function ApproveSubmissionButton({bookId}: ApproveSubmissionProps) {
 
+
+function ApproveSubmissionButton({bookId}: ApproveSubmissionProps) {
+    
     const [formState, fromAction] = useFormState(approveSubmission, undefined)
     return <form action={fromAction} className='space-y-1'>
         <input hidden name="bookId" value={bookId} />

@@ -1,4 +1,4 @@
-import JobListItem from "@/components/BookListItem";
+import BookListItem from "@/components/BookListItem";
 import H1 from "@/components/ui/h1";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
@@ -14,8 +14,8 @@ export default async function AdminPage() {
             <section className="flex flex-col gap-3">
                 <h2 className="text-lg font-bold">Unapproved jobs:</h2>
                 {unapprovedBooks.map((book) => (
-                    <Link key={book.id} href={`/admin/jobooks/${book.slug}`} className="block">
-                        <JobListItem book={book} />
+                    <Link key={book.id} href={`/admin/books/${book.slug}`} className="block">
+                        <BookListItem book={book} />
                     </Link>
                 ))}
                 {unapprovedBooks.length === 0 && (
