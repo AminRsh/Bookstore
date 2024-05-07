@@ -103,7 +103,7 @@ const BookPage = ({ book }: BookPageProps) => {
                             Order now
                         </a>
                     </Button>
-                    <FavoriteButton book={book}/>
+                    {/* <FavoriteButton book={book}/> */}
                 </div>
             </div>
         </div>
