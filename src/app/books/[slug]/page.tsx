@@ -1,4 +1,4 @@
-import { cache } from "react"
+
 import prisma from "@/lib/prisma"
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
@@ -14,14 +14,17 @@ interface PageProps {
 
 
 
-const getBook = cache(async (slug: string) => {
+const getBook = async (slug: string) => {
     const book = await prisma.book.findUnique({
         where: { slug }
     })
 
-    if (!book) notFound();
+    if (!book){ 
+        notFound();
+    }
+
     return book
-})
+}
 
 export async function generateStaticParams() {
     const books = await prisma.book.findMany({
