@@ -15,7 +15,7 @@ const SearchBar = () => {
                 <input
                     type="search"
                     name="search"
-                    className="md:w-[60%] w-full mr-[20px] py-[6px] md:py-[12px] px-6 text-sm text-white bg-[#F6F6F6] rounded-full focus:outline-none focus:bg-[#bdb9b9] focus:text-white"
+                    className="md:w-[60%] w-full mr-[20px] py-[6px] md:py-[12px] px-6 text-sm text-white bg-[#F6F6F6] rounded-full focus:outline-none focus:bg-slate-200 focus:text-white"
                     placeholder="Search Books"
                     autoComplete="off"
                 />

@@ -1,6 +1,7 @@
 "use client"
 import PercentageToStars from "@/components/PercentageToStars"
 import { Card } from "@/components/ui/card"
+import H1 from "@/components/ui/h1"
 import { relativeDate } from "@/lib/utils"
 import { useUser } from "@clerk/clerk-react"
 import Image from "next/image"
@@ -19,7 +20,7 @@ export default function Page() {
     const { user } = useUser()
 
     const key = `favoriteBook_${user?.id}`
-    const favoriteBooks = JSON.parse(localStorage.getItem(key) ?? "[]")
+    const favoriteBooks = user ? JSON.parse(localStorage.getItem(key) ?? "[]") : [];
 
 
     return (
@@ -66,12 +67,15 @@ export default function Page() {
                 </div>
             </div>
             <div className="my-[80px] border rounded-lg px-[10px] sm:px-[80px] py-[80px] bg-slate-100">
+                <div className="flex justify-center mb-[60px]">
+                    <h1 className="sm:font-bold sm:text-4xl">Your Favorite Book List</h1>
+                </div>
                 <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mx-auto">
                     {
                         favoriteBooks.reverse().map((book: bookProps) =>
-                            <Card className="min-w-[250px] sm:max-w-full py-4 px-8 shadow-lg group transform transition duration-500 hover:scale-[1.2] hover:z-50" key={book.id}>
+                            <Card className="min-w-[100px] sm:max-w-full py-4 px-8 shadow-lg group transform transition duration-500 hover:scale-[1.2] hover:z-50" key={book.id}>
                                 <div className="flex justify-start items-center space-x-8">
-                                    <div className="w-[85px] h-[125px]">
+                                    <div className="w-[85px] h-[125px] hidden sm:block">
                                         <Image
                                             src={book.bookCoverImg}
                                             alt={book.title}
