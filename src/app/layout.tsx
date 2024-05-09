@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <ClerkProvider >
       <html lang="en">
-        <body className={`${inter.className} min-w-[350px]`}>
+        <body className={`${inter.className}`}>
           <Navbar />
           {children}
           <Footer />
