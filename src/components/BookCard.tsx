@@ -28,7 +28,7 @@ const BookCard = () => {
                     return (
                         <Card className="xl:max-w-[400px] py-4 px-8 shadow-lg group transform transition duration-500 hover:scale-[1.2] hover:z-50" key={book.id}>
                             <div className="flex justify-start items-center space-x-8">
-                                <div className="w-[85px] h-[125px]">
+                                <div className="hidden sm:block w-[85px] h-[125px]">
                                     <Image 
                                     src={book.Image_URL || coverImg} 
                                     alt={book.Title} 

@@ -42,9 +42,9 @@ export default function Home() {
               <hr className="w-[18px] border-red-600" />
               <span className="text-red-600 text-sm ">Categories</span>
             </div>
-            <h2 className="text-[#393280] font-bold text-[38px]">Explore Our Top Categories</h2>
+            <h2 className="text-[#393280] font-bold text-[20] sm:text-[38px]">Explore Our Top Categories</h2>
           </div>
-          <div className="">
+          <div className="mt-[10px]">
             <p className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores quaerat amet officiis nam tenetur dolorem totam obcaecati ipsa voluptates nulla quos aperiam aliquam, numquam, praesentium ea necessitatibus sequi in quo. At libero aut soluta nihil maxime fugit, debitis numquam nemo quaerat illum ea unde possimus architecto labore, dolorem magni adipisci mollitia qui placeat impedit odio accusamus, fugiat autem? Fugit facilis dolor soluta neque temporibus minus omnis architecto natus nam veniam. Molestias nobis excepturi quis aliquid nostrum consectetur, aut veniam vero?</p>
           </div>
         </div>
@@ -89,9 +89,12 @@ export default function Home() {
           </Button> 
         </div>
       </div>
-      <div className="grid gap-4 xl:mx-16 xl:px-8 xl:grid-cols-3 sm:grid-cols-2 md:mx-4 sm:mx-2 mx-16 my-8">
+      <div className="flex justify-center items-center">
+        <div className="grid gap-4 xl:mx-16 xl:px-8 xl:grid-cols-3 sm:grid-cols-2 md:mx-4 sm:mx-2 mx-16 my-8">
           <BookCard />
       </div>
+      </div>
+      
     </main>
   );
 }
