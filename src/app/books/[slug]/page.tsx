@@ -20,7 +20,8 @@ const getBook = async (slug: string) => {
     })
 
     if (!book){ 
-        notFound();
+        alert("Book not found")
+        return notFound();
     }
 
     return book
@@ -35,13 +36,13 @@ export async function generateStaticParams() {
     return books.map(({ slug }) => slug)
 }
 
-export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
-    const book = await getBook(slug)
+// export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
+//     const book = await getBook(slug)
 
-    return {
-        title: book.title
-    }
-}
+//     return {
+//         title: book.title
+//     }
+// }
 
 const Page = async ({ params: { slug } }: PageProps) => {
     const book = await getBook(slug)

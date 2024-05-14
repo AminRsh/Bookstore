@@ -79,7 +79,7 @@ const BookFilterSlidebar = async ({ defaultValues }: BookFilterSidebarProps) => 
                             }
                         </Select>
                         <FormSubmitButton className="w-full">
-                            Filter Jobs
+                            Filter Books
                         </FormSubmitButton>
                         <Button asChild className="w-full bg-green-600 hover:bg-green-900" >
                             <Link href="/books/new">
