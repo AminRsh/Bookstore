@@ -15,17 +15,23 @@ interface PageProps {
 
 
 const getBook = async (slug: string) => {
-    const book = await prisma.book.findUnique({
-        where: { slug }
-    })
+    try {
+        const book = await prisma.book.findUnique({
+            where: { slug }
+        });
 
-    if (!book){ 
-        alert("Book not found")
-        return notFound();
+        if (!book) {
+            throw new Error("Book not found");
+        }
+
+        return book;
+    } catch (error) {
+
+        console.error("Error fetching book:", error);
+        throw error;
     }
+};
 
-    return book
-}
 
 export async function generateStaticParams() {
     const books = await prisma.book.findMany({
@@ -36,20 +42,31 @@ export async function generateStaticParams() {
     return books.map(({ slug }) => slug)
 }
 
-// export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
-//     const book = await getBook(slug)
+export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
+    try {
+        const book = await getBook(slug);
 
-//     return {
-//         title: book.title
-//     }
-// }
+        return {
+            title: book.title
+        };
+    } catch (error) {
+
+        if ((error as Error).message === "Book not found") {
+            return notFound();
+        }
+
+        console.error("Error generating metadata:", error);
+        throw error;
+    }
+}
+
 
 const Page = async ({ params: { slug } }: PageProps) => {
     const book = await getBook(slug)
     const bookId = book.id
 
     if (!book) {
-        console.log("Book has no application link or email");
+        console.log("Book not found");
         notFound()
     }
 
