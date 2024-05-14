@@ -1,21 +1,15 @@
 "use client"
 
-import { NextApiRequest, NextApiResponse } from 'next';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/router';
 
-
-export default async function error(req: NextApiRequest, res: NextApiResponse) {
-    console.error('An error occurred:', req.method, req.url);
-
-    res.status(500).json({ message: 'An error occurred while processing your request.' });
+export default function ErrorPage() {
+    const router = useRouter();
 
     return (
         <div>
-          <h2>Something went wrong!</h2>
-          <button
-           >
-            Try again
-          </button>
+            <h2>Oops Something went wrong.</h2>
+            <p>We are sorry, but something went wrong on our end. Please try again later.</p>
+            <button onClick={() => router.push('/')}>Go Home</button>
         </div>
-      )
+    );
 }
