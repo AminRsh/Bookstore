@@ -7,7 +7,7 @@ import FeedbackForm from "@/components/FeedbackForm"
 import CarouselReviews from "@/components/CarouselReviews"
 import { getReview } from "@/lib/actions/review.action"
 import { clerkClient } from "@clerk/nextjs";
-import { useRouter } from 'next/router';
+import { redirect } from "next/navigation";
 
 interface PageProps {
     params: { slug: string }
@@ -64,14 +64,13 @@ export async function generateMetadata({ params: { slug } }: PageProps): Promise
 
 const Page = async ({ params: { slug } }: PageProps) => {
 
-    const router = useRouter();
     const book = await getBook(slug)
     const bookId = book.id
 
     if (!book) {
         console.log("Book not found");
-        router.push('/error');
-        return null;
+        redirect('/error'); 
+    return null;
     }
 
     const reviews = await getReview(bookId) || []
