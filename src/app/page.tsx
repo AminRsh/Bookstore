@@ -90,7 +90,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex justify-center items-center">
-        <div className="grid gap-4 xl:mx-16 xl:px-8 xl:grid-cols-3 sm:grid-cols-2 md:mx-4 sm:mx-2 mx-16 my-8">
+        <div className="grid gap-4 2xl:grid-cols-4 xl:mx-16 xl:px-8 xl:grid-cols-3 sm:grid-cols-2 md:mx-4 sm:mx-2 mx-16 my-8">
           <BookCard />
       </div>
       </div>

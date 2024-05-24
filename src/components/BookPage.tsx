@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Markdown from "./Markdown";
-import { Button } from "./ui/button";
 import FavoriteButton from "./ui/FavoriteButton";
+import CheckoutButton from "./ui/CheckoutButton";
 
 interface BookPageProps {
     book: Book;
@@ -32,7 +32,7 @@ const BookPage = ({ book }: BookPageProps) => {
         pages,
         rating,
     } = book;
-    
+
     return (
         <div className="my-10 flex flex-col items-center gap-5 px-3 h-[600px] rounded-xl bg-gray-200">
             <div className="space-y-8 p-8">
@@ -89,21 +89,10 @@ const BookPage = ({ book }: BookPageProps) => {
                 <div className="py-[20px] max-w-[900px] max-h-[180px] overflow-y-hidden ">
                     {description && <Markdown>{description}</Markdown>}
                 </div>
-                <div
-                    className="invisible opacity-0 absolute group-hover:flex group-hover:space-x-4 group-hover:top-[0%] group-hover:visible group-hover:opacity-100
-                        justify-center items-center inset-0 top-[100%] transition-[top] duration-300 backdrop-blur-sm p-6 z-20"
-                >
-                    <Button
-                        asChild
-                        variant="secondary"
-                        className="bg-transparent text-black rounded-none border-2 border-black"
-                        size="lg"
-                    >
-                        <a href="/order" className="w-80">
-                            Order now
-                        </a>
-                    </Button>
-                    <FavoriteButton book={book}/>
+                <div className="invisible opacity-0 absolute group-hover:flex group-hover:space-x-4 group-hover:top-[0%] group-hover:visible group-hover:opacity-100
+                        justify-center items-center inset-0 top-[100%] transition-[top] duration-300 backdrop-blur-sm p-6 z-20">
+                    <CheckoutButton book={book} />
+                    <FavoriteButton book={book} />
                 </div>
             </div>
         </div>
