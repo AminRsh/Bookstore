@@ -38,7 +38,7 @@ export default function CarouselReviews({ reviews, userImages }: CarouselReviews
 
     if (revirewNumbers > 0) {
         return (
-            <Carousel className=" ">
+            <Carousel className="">
                 <CarouselContent className="-ml-1">
                     {Array.from({ length: revirewNumbers }).map((_, index) => (
                         <CarouselItem key={index} className="pl-1 md:basis-1/2  lg:basis-1/3 xl:basis-1/4">
@@ -51,7 +51,7 @@ export default function CarouselReviews({ reviews, userImages }: CarouselReviews
                                     />
                                 </div>
                                 <p
-                                    className="text-lg text-gray-500 leading-8 h-24 transition-all duration-500 mb-9 group-hover:text-gray-800">
+                                    className="text-sm leading-6 text-gray-500 h-24 transition-all duration-500 mb-9 group-hover:text-gray-800">
                                     {reviews[index]?.review}
                                 </p>
                                 <div className="flex items-center gap-5">

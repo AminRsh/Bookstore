@@ -17,8 +17,8 @@ export default function Home() {
           style={{ backgroundImage: 'linear-gradient(to right, #F8E4C1, #ffffff 20%)' }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white " style={{ width: '10%', zIndex: -1 }}></div>
-          <h1 className="font-bold text-[36px] text-[#393280]">Lorem ipsum</h1>
-          <p className="text-[#393280] leading-loose">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+          <h1 className="font-bold text-[36px] text-[#393280]">Backstage Treasures</h1>
+          <p className="text-[#393280] leading-loose">Uncover Hidden Gems at Backstage Treasures</p>
           <div className="">
             <Button variant="outline">
               READ MORE  <MdOutlineArrowRightAlt size={20} />
@@ -45,7 +45,7 @@ export default function Home() {
             <h2 className="text-[#393280] font-bold text-[20] sm:text-[38px]">Explore Our Top Categories</h2>
           </div>
           <div className="mt-[10px]">
-            <p className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores quaerat amet officiis nam tenetur dolorem totam obcaecati ipsa voluptates nulla quos aperiam aliquam, numquam, praesentium ea necessitatibus sequi in quo. At libero aut soluta nihil maxime fugit, debitis numquam nemo quaerat illum ea unde possimus architecto labore, dolorem magni adipisci mollitia qui placeat impedit odio accusamus, fugiat autem? Fugit facilis dolor soluta neque temporibus minus omnis architecto natus nam veniam. Molestias nobis excepturi quis aliquid nostrum consectetur, aut veniam vero?</p>
+            <p className="">Welcome to Backstage Treasures, your gateway to a world of hidden literary gems. Our bookstore offers a curated selection of unique and rare books, catering to avid readers and collectors alike. From timeless classics to contemporary masterpieces, we pride ourselves on providing an exceptional browsing experience. Whether you are hunting for a specific title or discovering something new, Backstage Treasures is the perfect destination. Explore our shelves and uncover the stories that await. Your next literary adventure begins here</p>
           </div>
         </div>
         <div className="grid md:grid-cols-3 gap-8 my-[50px]">
