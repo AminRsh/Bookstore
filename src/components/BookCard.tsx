@@ -38,7 +38,7 @@ const BookCard = () => {
                                     />
                                 </div>
                                 <div className="flex flex-col items-start space-y-[5px] sm:max-w-[140px]">
-                                    <h2 className="text-md font-semibold max-w-[180px] truncate">{book.Title}</h2>
+                                    <h2 className="text-sm font-semibold max-w-[150px] truncate">{book.Title}</h2>
                                     <span className="text-xs text-gray-500">Author: <span className="text-black">{book.Author}</span></span>
                                     <span className="text-xs text-gray-500">Price: <span className="text-black">{book.Rating} $</span></span>
                                     <span className="">

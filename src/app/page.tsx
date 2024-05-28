@@ -4,10 +4,10 @@ import Image from 'next/image';
 import Image1 from '@/assets/categoryImg1.png';
 import Image2 from '@/assets/categoryImg2.png';
 import Image3 from '@/assets/categoryImg3.png';
-
-
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import BookCard from '@/components/BookCard';
+import Link from 'next/link';
+
 export default function Home() {
   return (
     <main className="mt-[30px] ">
@@ -20,8 +20,10 @@ export default function Home() {
           <h1 className="font-bold text-[36px] text-[#393280]">Backstage Treasures</h1>
           <p className="text-[#393280] leading-loose">Uncover Hidden Gems at Backstage Treasures</p>
           <div className="">
-            <Button variant="outline">
-              READ MORE  <MdOutlineArrowRightAlt size={20} />
+            <Button variant="outline" asChild>
+              <Link href="/more">
+                READ MORE  <MdOutlineArrowRightAlt size={20} />
+              </Link>
             </Button>
           </div>
         </div>
@@ -58,7 +60,7 @@ export default function Home() {
               className='rounded-md sm:max-md:w-full hover:opacity-85 max-width: 100%;'
             />
             <h3 className="text-[#393280] font-semibold text-lg">Higher Education</h3>
-            <p className="text-[#393280] text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit.dolor sit amet consectetur adipisicing</p>
+            <p className="text-[#393280] text-sm">Comprehensive resources for advanced learning, academic success, and career preparation in various disciplines</p>
           </div>
           <div className="flex flex-col text-center space-y-4 items-center justify-center">
             <Image
@@ -69,7 +71,7 @@ export default function Home() {
               className='rounded-md sm:max-md:w-full hover:opacity-85 max-width: 100%;'
             />
             <h3 className="text-[#393280] font-semibold text-lg">Managemet Books</h3>
-            <p className="text-[#393280] text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit.dolor sit amet consectetur adipisicing</p>
+            <p className="text-[#393280] text-sm">Essential guides on leadership, strategy, and organizational skills for effective business management</p>
           </div>
           <div className="flex flex-col text-center space-y-4 items-center justify-center">
             <Image
@@ -80,21 +82,23 @@ export default function Home() {
               className='rounded-md sm:max-md:w-full hover:opacity-85 max-width: 100%;'
             />
             <h3 className="text-[#393280] font-semibold text-lg">Engineering Books</h3>
-            <p className="text-[#393280] text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit.dolor sit amet consectetur adipisicing</p>
+            <p className="text-[#393280] text-sm">Technical manuals and innovative resources for aspiring and professional engineers across all fields</p>
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <Button variant="outline">
-            READ MORE  <MdOutlineArrowRightAlt size={20} />
-          </Button> 
+          <Button variant="outline" asChild>
+            <Link href="/more">
+              READ MORE  <MdOutlineArrowRightAlt size={20} />
+            </Link>
+          </Button>
         </div>
       </div>
       <div className="flex justify-center items-center">
         <div className="grid gap-4 2xl:grid-cols-4 xl:mx-16 xl:px-8 xl:grid-cols-3 sm:grid-cols-2 md:mx-4 sm:mx-2 mx-16 my-8">
           <BookCard />
+        </div>
       </div>
-      </div>
-      
+
     </main>
   );
 }
