@@ -40,7 +40,7 @@ export async function generateStaticParams() {
         select: { slug: true }
     })
 
-    return books.map(({ slug }) => slug)
+    return books.map(({ slug }: { slug: string }) => slug)
 }
 
 export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
