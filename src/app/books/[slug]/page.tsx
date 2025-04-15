@@ -37,7 +37,8 @@ const getBook = async (slug: string) => {
 export async function generateStaticParams() {
     const books = await prisma.book.findMany({
         where: { approved: true },
-        select: { slug: true }
+        select: { slug: true },
+        take: 1000
     })
 
     return books.map(({ slug }: { slug: string }) => slug)
