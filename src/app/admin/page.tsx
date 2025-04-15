@@ -1,7 +1,10 @@
 import BookListItem from "@/components/BookListItem";
 import H1 from "@/components/ui/h1";
 import prisma from "@/lib/prisma";
+import { Book } from "@prisma/client";
 import Link from "next/link";
+
+
 
 export default async function AdminPage() {
     const unapprovedBooks = await prisma.book.findMany({
@@ -13,7 +16,7 @@ export default async function AdminPage() {
             <H1 className="text-center">Admin Dashboard</H1>
             <section className="flex flex-col gap-3">
                 <h2 className="text-lg font-bold">Unapproved jobs:</h2>
-                {unapprovedBooks.map((book) => (
+                {unapprovedBooks.map((book: Book) => (
                     <Link key={book.id} href={`/admin/books/${book.slug}`} className="block">
                         <BookListItem book={book} />
                     </Link>
