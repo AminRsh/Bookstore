@@ -34,15 +34,21 @@ const getBook = async (slug: string) => {
 };
 
 
-// export async function generateStaticParams() {
-//     const books = await prisma.book.findMany({
-//         where: { approved: true },
-//         select: { slug: true },
-//         take: 1000
-//     })
+export async function generateStaticParams() {
+    try {
+        const books = await prisma.book.findMany({
+            where: { approved: true },
+            select: { slug: true }
+        });
 
-//     return books.map(({ slug }: { slug: string }) => slug)
-// }
+        return books.map(({ slug }) => ({
+            slug,
+        }));
+    } catch (error) {
+        console.error("Error generating static params:", error);
+        return [];
+    }
+}
 
 export async function generateMetadata({ params: { slug } }: PageProps): Promise<Metadata> {
     try {
@@ -70,8 +76,8 @@ const Page = async ({ params: { slug } }: PageProps) => {
 
     if (!book) {
         console.log("Book not found");
-        redirect('/error'); 
-    return null;
+        redirect('/error');
+        return null;
     }
 
     const reviews = await getReview(bookId) || []
